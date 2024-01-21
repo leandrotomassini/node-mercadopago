@@ -10,6 +10,6 @@ server.use(express.json());
 
 server.use(cors())
 
-server.use("/Mercado_Pago", Mercado_Pago);
+server.use("/mercadopago", Mercado_Pago);
 
 module.exports = server;

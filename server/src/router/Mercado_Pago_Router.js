@@ -3,6 +3,7 @@ const mercadopago = require('mercadopago');
 const dotenv = require('dotenv');
 
 dotenv.config();
+
 const Mercado_Pago = Router();
 
 mercadopago.configure({
@@ -10,23 +11,25 @@ mercadopago.configure({
 });
 
 Mercado_Pago.post('/', async (req, res) => {
+
+    const product = req.body;
+
     try {
 
         const preference = {
 
             items: [
                 {
-                    title: "Computadora",
-                    picture_url: "http://fdsfd",
-                    unit_price: 200,
-                    currency_id: "ARG",
-                    description: "Portatil lenovo",
-                    quantity: 1
+                    title: product.nombre,
+                    unit_price: product.precio,
+                    currency_id: "ARS",
+                    description: "Notebook",
+                    quantity: product.cantidad
                 }
             ],
 
             back_urls: {
-                success: "http://localhost:3000/success",
+                success: "http://localhost:5173/",
                 failure: "http://localhost:3000/failure"
             },
 
@@ -35,8 +38,8 @@ Mercado_Pago.post('/', async (req, res) => {
 
 
         const resp = await mercadopago.preferences.create(preference);
-        console.log(resp);
-        res.status(200).json(resp);
+        console.log(resp.response.init_point);
+        res.status(200).json(resp.response.init_point);
     } catch (error) {
         console.log(error.message);
         res.status(500).json(error.message);
