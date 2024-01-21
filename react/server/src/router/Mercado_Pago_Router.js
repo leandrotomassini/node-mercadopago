@@ -30,7 +30,8 @@ Mercado_Pago.post('/', async (req, res) => {
 
             back_urls: {
                 success: "http://localhost:5173/",
-                failure: "http://localhost:3000/failure"
+                failure: "http://localhost:3000/failure",
+                pending: "http://localhost:3000/pending"
             },
 
             auto_return: "approved",
